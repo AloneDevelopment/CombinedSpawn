@@ -10,7 +10,6 @@ import me.alonedev.combinedspawn.Mechanics.CommandsTab;
 import me.alonedev.combinedspawn.Utils.ConfigUpdater;
 import me.alonedev.combinedspawn.Utils.Util;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
