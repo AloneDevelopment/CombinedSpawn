@@ -1,0 +1,53 @@
+#
+Version: 1.0.0
+#
+
+#
+# This Plugin is created by AloneMusk
+# [Be careful with configs!]
+
+
+
+####Join Messages
+
+
+###Variables:
+# %line% = Starts new line
+# %player% = displays player name
+# %joinplacement% = displays all players that have ever joined the server
+
+
+
+#Sends when the player first ever joins the server.
+First_Join_Message: "&6Hello %player%, Welcome to server (%joinplacement%)    %line%  &5Hope you enjoy your stay! %line% and don't forget to say hello."
+
+
+#Sends whenever the player joins the server.
+Join_Message: "&6Hello %player%, Welcome to server"
+
+
+####QuitMessages
+
+Quit_Message: "&6%player% left the server"
+
+#
+#Options
+#
+
+Enable_Void_TP: true
+Enable_Force_Teleport: true
+Enable_Spawn_Command: true
+Enable_Spawn_Messages: true
+Enable_Leave_Messages: true
+Enable_First_Join_Messages: true
+Enable_First_Join_Force_Teleport: true
+
+#Spawn
+
+Spawn_Location:
+  x: 0
+  y: ~
+  z: 0
+  yaw: 90
+  pitch: 0
+  world: "world"

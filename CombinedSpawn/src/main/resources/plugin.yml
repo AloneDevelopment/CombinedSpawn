@@ -1,0 +1,19 @@
+name: CombinedSpawn
+version: ${project.version}
+main: me.alonedev.combinedspawn.CombinedSpawn
+api-version: 1.13
+prefix: [ CombinedSpawn ]
+load: STARTUP
+authors: [ AloneMusk ]
+description: An advanced spawn plugin with VoidTP and /spawn
+
+
+commands:
+  CS:
+    description: Admin command
+    usage: /<command>
+    permission: ironhavens.admin
+  spawn:
+    description: Teleports you to spawn
+    usage: /<command>
+    permission: ironhavens.use
