@@ -20,35 +20,6 @@ import java.io.IOException;
 
 public final class CombinedSpawn extends JavaPlugin {
 
-
-    //Config Options
-    public static int joinPlacement;
-
-
-    private String mainPath;
-    public static final String PLUGIN_NAME = "CombinedSpawn";
-    public static final String PREFIX = ChatColor.GOLD+"["+PLUGIN_NAME+"] ";
-    public static String Joinmessage;
-    public static String FirstJoinmessage;
-    public static int x;
-    public static int y;
-    public static int z;
-    public static int yaw;
-    public static int pitch;
-    public static String spawnworld;
-    public static String Quitmessage;
-    public static final String BASE_COMMAND = "CS";
-    public static final String BASE_PERMISSION = "CS.use";
-    public static boolean VoidTPEnable;
-    public static boolean ForceTeleportOnJoin;
-    public static boolean SpawnMessages;
-    public static boolean SpawnCommand;
-    public static boolean LeaveMessages;
-    public static boolean FirstJoinMessage;
-    public static boolean ForceTeleportOnFirstJoin;
-
-
-
     //Data.yml
 
     private File dataFile = new File(getDataFolder(), "data.yml");
@@ -58,7 +29,6 @@ public final class CombinedSpawn extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         Util.consoleMsg("--------------------------------------\n  \nCombinedSpawn has successfully loaded!\n  \n--------------------------------------");
-
 
         this.getConfig().options().copyDefaults();
         this.saveDefaultConfig();
