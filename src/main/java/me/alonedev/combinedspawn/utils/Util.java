@@ -1,5 +1,6 @@
-package me.alonedev.combinedspawn.Utils;
+package me.alonedev.combinedspawn.utils;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,7 +15,7 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-
+import java.util.List;
 
 public class Util {
 
@@ -26,6 +27,20 @@ public class Util {
     public static void sendMsg(String msg, Player p) {
         if (p == null) consoleMsg(msg);
         else p.sendMessage(msg);
+    }
+
+    public static void sendMultipleMsg(List<String> messages, Player p) {
+        for (String message : messages) {
+            String msg = PlaceholderAPI.setPlaceholders(p, message);
+            Util.sendMsg(msg, p);
+        }
+    }
+
+
+
+    public static String returnPlaceholders(String message, Player p) {
+        String msg = PlaceholderAPI.setPlaceholders(p,message);
+        return msg;
     }
 
     //Sends a message to a player if they have permission
@@ -165,5 +180,3 @@ public class Util {
 
 
 }
-
-

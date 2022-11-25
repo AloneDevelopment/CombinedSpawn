@@ -6,7 +6,7 @@ prefix: [ CombinedSpawn ]
 load: STARTUP
 authors: [ AloneMusk ]
 description: An advanced spawn plugin with VoidTP and /spawn
-
+depend: [PlaceholderAPI]
 
 commands:
   CS:
