@@ -1,5 +1,5 @@
 #
-Version: 1.0.0
+Version: 2.0.0
 #
 
 #
@@ -13,41 +13,282 @@ Version: 1.0.0
 
 ###Variables:
 # %line% = Starts new line
-# %player% = displays player name
 # %joinplacement% = displays all players that have ever joined the server
 
 
 
 #Sends when the player first ever joins the server.
-First_Join_Message: "&6Hello %player%, Welcome to server (%joinplacement%)    %line%  &5Hope you enjoy your stay! %line% and don't forget to say hello."
+First_Join_Message: "&6Hello %player_displayname%, Welcome to server (%joinplacement%)    %line%  &5Hope you enjoy your stay! %line% and don't forget to say hello."
 
 
 #Sends whenever the player joins the server.
-Join_Message: "&6Hello %player%, Welcome to server"
+Join_Message: "&6Hello %player_displayname%, Welcome to server"
+
+
+#Message player gets whenever they join the server
+Message_MOTD: "&b------------------------------- %line% &cWelcome back %player_displayname% to Server! %line% &b-------------------------------"
+
+#Message player gets when they first join the server
+First_Message_MOTD: "&b------------------------------- %line% &cWelcome %player_displayname% to Server! %line% &b-------------------------------"
+
 
 
 ####QuitMessages
 
-Quit_Message: "&6%player% left the server"
+Quit_Message: "&6%player% left the server!"
+
+
+
+
 
 #
 #Options
 #
 
+#Enables VoidTP (Teleports player to spawn if they fall into the void)
 Enable_Void_TP: true
-Enable_Force_Teleport: true
+
+#Protects a player from dying after falling into the void
+Enable_Void_TP_Protect: true
+
+#Teleports player to spawn EVERY time they join the server
+Enable_Force_Teleport: false
+
+#Activates the /spawn command
 Enable_Spawn_Command: true
+
+#Enables the join messages
 Enable_Spawn_Messages: true
+
+#Enables the leave messages
 Enable_Leave_Messages: true
+
+#Enables custom first join messages
 Enable_First_Join_Messages: true
-Enable_First_Join_Force_Teleport: true
+
+#Forces the player to spawn when they first join the server
+Enable_First_Join_Force_Teleport: false
+
+Options:
+  Enable_Spawn_Countdown_Titles: true
+  Enable_Spawn_Teleport: true
+  Spawn_Cooldown: 10
+
 
 #Spawn
 
 Spawn_Location:
   x: 0
-  y: ~
+  y: 150
   z: 0
   yaw: 90
   pitch: 0
   world: "world"
+
+
+#Enable or disable Bstats
+Enable_Bstats: true
+
+
+
+#
+#Titles
+#
+
+Titles:
+  First_Join:
+    Title: "&bWelcome to Server"
+    SubTitle: "&c%player_displayname%"
+    FadeIn: 10
+    Stay: 100
+    FadeOut: 10
+  Join:
+    Title: "&bWelcome back to Server"
+    SubTitle: "&c%player_displayname%"
+    FadeIn: 10
+    Stay: 100
+    FadeOut: 10
+  Respawn:
+    Title: "&bYou Died!"
+    SubTitle: "&cRespawning in &b%cooldown% &cseconds"
+    FadeIn: 10
+    Stay: 100
+    FadeOut: 10
+  Spawn_Teleporting:
+    Title: "&bTeleporting to spawn!"
+    SubTitle: "&cTeleporting in &b%cooldown% &cseconds"
+    FadeIn: 10
+    Stay: 100
+    FadeOut: 10
+
+#
+#Deaths
+#
+
+
+Deaths:
+  #Most of these features only work when (Enable_Death_Screen_Skip) is enabled.
+
+  #Enables Penalty for dying
+  Enable_Death_Penalty: false
+
+  #Enables a money loss penalty for dying
+  Enable_Money_Penalty: false
+
+  #Set to ("add" or "remove"), this determines if you are giving the player money or taking it away.
+  Money_Add_Or_Remove: "remove"
+
+  #Sets the amount of money lost for dying (- to remove money)
+  Money_Penalty: 100
+
+  #Enables a level loss penalty for dying
+  Enable_level_Penalty: false
+
+  #Set to ("add" or "remove"), this determines if you are giving the player levels or taking it away.
+  Level_Add_Or_Remove: "remove"
+
+  #Sets the amount of levels lost for dying (- to remove levels)
+  Level_Penalty: -2
+
+  #Enables a exp loss penalty for dying
+  Enable_exp_Penalty: true
+
+  #Set to ("add" or "remove"), this determines if you are giving the player exp or taking it away.
+  exp_Add_Or_Remove: "remove"
+
+  #Sets the amount of exp lost for dying (- to remove exp)
+  exp_Penalty: -1
+
+  #Skips the player death screen and automatically respawns them
+  Enable_Death_Screen_Skip: true
+
+  #Teleports the player to spawn when they die
+  Enable_Death_Teleport: true
+
+  #Enables the respawn countdown titles.
+  Enable_Respawn_Countdown_Titles: true
+
+  #Makes it so the user can NOT move when they are respawning.
+  No_Move_On_Resapwn: true
+
+  #The gamemode they are set to after they have respawned.
+  Gamemode_After_Respawn: SURVIVAL
+
+  #The gamemode they are set to before they have respawned.
+  Gamemode_Before_Respawn: SPECTATOR
+
+
+  Types:
+    DEFAULT:
+      Message: "&c%player_displayname% died to ``"
+      Private_Message: "&bYou died to wither"
+      Money_Penalty: 1000
+      Level_Penalty: 2
+      exp_Penalty: 1
+      Title:
+        Death_Title: "&cYou Died!"
+        Death_Subtitle: "&bUnfortunately you lost %moneylost%"
+        FadeIn: 10
+        Stay: 100
+        FadeOut: 10
+      Respawn_Cooldown: 5
+      Keep_Inventory: true
+      Keep_Levels: true
+    WITHER:
+      Message: "&c%player_displayname% died to ``"
+      Private_Message: "&bYou died to wither"
+      Money_Penalty: 1000
+      Level_Penalty: 2
+      exp_Penalty: 1
+      Title:
+        Death_Title: "&cYou Died!"
+        Death_Subtitle: "&bUnfortunately you lost %moneylost%"
+        FadeIn: 10
+        Stay: 100
+        FadeOut: 10
+      Respawn_Cooldown: 5
+      Keep_Inventory: true
+      Keep_Level: true
+    FALL:
+      Message: "Someone died to falling, I wonder who??"
+      Private_Message: "You died to falling off a cliff"
+      Money_Penalty: 100
+      Level_Penalty: 3
+      exp_Penalty: 1
+      Title:
+        Death_Title: "&cYou Died!"
+        Death_Subtitle: "&bUnfortunately you lost %moneylost%"
+        FadeIn: 10
+        Stay: 100
+        FadeOut: 10
+      Respawn_Cooldown: 5
+      Keep_Inventory: true
+      Keep_Levels: true
+    ZOMBIE:
+      Message: "&bSomeone died to a Zombie"
+      Private_Message: "&cYou died to Zombie!"
+      Money_Penalty: 100
+      Level_Penalty: 3
+      exp_Penalty: 1
+      Title:
+        Death_Title: "&cYou Died!"
+        Death_Subtitle: "&bUnfortunately you lost %moneylost% to a zombie"
+        FadeIn: 10
+        Stay: 100
+        FadeOut: 10
+      Respawn_Cooldown: 5
+      Keep_Inventory: true
+      Keep_Levels: true
+    LIGHTNING:
+      Message: "&bSomeone died to a lightning stike"
+      Private_Message: "&cYou died to lightning strike!"
+      Money_Penalty: 100
+      Level_Penalty: 3
+      exp_Penalty: 1
+      Title:
+        Death_Title: "&cYou Died!"
+        Death_Subtitle: "&bUnfortunately you lost %moneylost% to a lightning stike!"
+        FadeIn: 10
+        Stay: 100
+        FadeOut: 10
+      Respawn_Cooldown: 5
+      Keep_Inventory: true
+      Keep_Levels: true
+    BLAZE:
+      Message: "&bSomeone died to a blaze!"
+      Private_Message: "&cYou died to a blaze!"
+      Money_Penalty: 100
+      Level_Penalty: 3
+      exp_Penalty: 1
+      Title:
+        Death_Title: "&cYou Died!"
+        Death_Subtitle: "&bUnfortunately you lost %moneylost% to a blaze!"
+        FadeIn: 10
+        Stay: 100
+        FadeOut: 10
+      Respawn_Cooldown: 20
+      Keep_Inventory: true
+      Keep_Levels: true
+    PLAYER:
+      Message: "&b%player_displayname% died to a %attacker%"
+      Private_Message: "&cYou died to %attacker%!"
+      Money_Penalty: 100
+      Level_Penalty: 3
+      exp_Penalty: 1
+      Title:
+        Death_Title: "&cYou Died!"
+        Death_Subtitle: "&bUnfortunately you lost %moneylost% to %attacker%!"
+        FadeIn: 10
+        Stay: 100
+        FadeOut: 10
+      Respawn_Cooldown: 20
+      Keep_Inventory: true
+      Keep_Levels: true
+  Attacker_Rewards:
+    Attacker_Message: "You Killed %victim%"
+    Money_Add_Or_Remove: "add"
+    Money: 100
+    Level_Add_Or_Remove: "add"
+    Level: 1
+    exp_Add_Or_Remove: "add"
+    exp: 1

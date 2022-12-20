@@ -13,12 +13,12 @@ public class JoinEvent implements Listener {
 
     private CombinedSpawn main;
     private ItemUtils itemUtils;
-    private Functions playerFunctions;
+    private Functions functions;
 
     public JoinEvent(CombinedSpawn main) {
         this.main = main;
         this.itemUtils = new ItemUtils(main);
-        this.playerFunctions = new Functions(main);
+        this.functions = new Functions(main);
     }
 
     @EventHandler
@@ -29,11 +29,11 @@ public class JoinEvent implements Listener {
             event.setJoinMessage(Util.returnPlaceholders(main.getConfig().getString("JoinEvent.FirstJoin.Message") ,player));
             Util.sendMultipleMsg(main.getConfig().getStringList("JoinEvent.FirstJoin.MOTD") ,player);
             itemUtils.generateItems(player, "JoinEvent.FirstJoin");
-            playerFunctions.teleportPlayer(player, "JoinEvent.FirstJoin.spawn");
+            functions.teleportPlayer(player, "JoinEvent.FirstJoin.spawn");
         }
         event.setJoinMessage(Util.returnPlaceholders(main.getConfig().getString("JoinEvent.Join.Message"), player));
         Util.sendMultipleMsg(main.getConfig().getStringList("JoinEvent.Join.MOTD"), player);
         itemUtils.generateItems(player,"JoinEvent.Join");
-        playerFunctions.teleportPlayer(player, "JoinEvent.Join.spawn");
+        functions.teleportPlayer(player, "JoinEvent.Join.spawn");
     }
 }

@@ -9,11 +9,7 @@ description: An advanced spawn plugin with VoidTP and /spawn
 depend: [PlaceholderAPI]
 
 commands:
-  CS:
-    description: Admin command
-    usage: /<command>
-    permission: ironhavens.admin
   spawn:
     description: Teleports you to spawn
     usage: /<command>
-    permission: ironhavens.use
+    permission: combinedSpawn.use
