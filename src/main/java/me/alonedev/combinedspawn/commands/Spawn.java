@@ -30,7 +30,7 @@ public class Spawn implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (main.getConfig().getBoolean("Options.Enable_Spawn_Teleport")) {
-                cooldowns.put(player, main.getConfig().getInt("Options.Spawn_Cooldown"));
+                cooldowns.put(player, main.getConfig().getInt("Options.Spawn_Teleport_Cooldown"));
 
                 new BukkitRunnable() {
 
@@ -49,7 +49,7 @@ public class Spawn implements CommandExecutor {
                             this.cancel();
                         } else {
                             if (main.getConfig().getBoolean("Options.Enable_Spawn_Countdown_Titles")) {
-                                Title title = Functions.getTitle("Spawn_Teleporting");
+                                Title title = Title.getTitle("SPAWN_TELEPORTING");
 
                                 String spawnTitle = PlaceholderAPI.setPlaceholders(player, title.getTitle());
                                 String Subtitle = PlaceholderAPI.setPlaceholders(player, title.getSubtitle());

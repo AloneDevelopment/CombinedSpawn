@@ -1,8 +1,5 @@
 package me.alonedev.combinedspawn;
 
-import me.alonedev.combinedspawn.events.DeathEvent;
-import me.alonedev.combinedspawn.events.JoinEvent;
-import me.alonedev.combinedspawn.events.VoidTP;
 import me.alonedev.combinedspawn.commands.Spawn;
 import me.alonedev.combinedspawn.constructors.DeathConstructor;
 import me.alonedev.combinedspawn.constructors.Title;
@@ -13,13 +10,9 @@ import me.alonedev.combinedspawn.utils.Util;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.logging.Logger;
 
 public final class CombinedSpawn extends JavaPlugin {
@@ -90,9 +83,7 @@ public final class CombinedSpawn extends JavaPlugin {
         FileConfiguration cfg = this.getConfig();
 
         cfg.getConfigurationSection("Deaths.Types").getKeys(false).forEach(x -> {
-            Bukkit.getConsoleSender().sendMessage(x);
             String DeathMessage = cfg.getString("Deaths.Types." + x + ".Message", cfg.getString("Player_Death.Death_Message"));
-            Bukkit.getConsoleSender().sendMessage(DeathMessage);
             String PrivateDeathMessage = cfg.getString("Deaths.Types." + x + ".Private_Message", "&cYou died! Unfortunately you lost %moneylost%");
             int MoneyPenalty = cfg.getInt("Deaths.Types." + x + ".Money_Penalty", 100);
             int levelPenalty = cfg.getInt("Deaths.Types." + x + ".Level_Penalty", 1);
@@ -111,9 +102,7 @@ public final class CombinedSpawn extends JavaPlugin {
 
         //Titles
         cfg.getConfigurationSection("Titles").getKeys(false).forEach(x -> {
-            Bukkit.getConsoleSender().sendMessage(x);
             String title = cfg.getString("Titles." + x + ".Title");
-            Bukkit.getConsoleSender().sendMessage(title);
             String subtitle = cfg.getString("Titles." + x + ".Subtitle");
             int fadeIn = cfg.getInt("Titles." + x + ".FadeIn");
             int stay = cfg.getInt("Titles." + x + ".Stay");
@@ -121,7 +110,7 @@ public final class CombinedSpawn extends JavaPlugin {
             int delay = cfg.getInt("Titles." + x + ".delay");
             Title newTitle = new Title(title, subtitle, fadeIn, stay, fadeOut);
             Title.setDelay(delay);
-            Functions.addTitle(x, newTitle);
+            Title.addTitle(x, newTitle);
         });
     }
 

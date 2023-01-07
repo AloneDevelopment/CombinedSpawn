@@ -58,17 +58,4 @@ public class Functions {
         return true;
 
     }
-
-
-    private static HashMap<String, Title> titles = new HashMap<>();
-
-    public static void addTitle(String id, Title title){
-
-        titles.put(id,title);
-
-    }
-
-    public static Title getTitle(String id) {
-        return titles.get(id);
-    }
 }

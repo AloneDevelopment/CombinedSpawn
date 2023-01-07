@@ -1,5 +1,7 @@
 package me.alonedev.combinedspawn.constructors;
 
+import java.util.HashMap;
+
 public class Title {
 
 
@@ -43,6 +45,18 @@ public class Title {
 
     public static void setDelay(int delayint) {
         delay = delayint;
+    }
+
+    private static HashMap<String, Title> titles = new HashMap<>();
+
+    public static void addTitle(String id, Title title){
+
+        titles.put(id,title);
+
+    }
+
+    public static Title getTitle(String id) {
+        return titles.get(id);
     }
 
 

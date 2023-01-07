@@ -55,6 +55,11 @@ Enable_Void_TP: true
 Enable_Force_Teleport: true
 Enable_Spawn_Command: true
 
+Options:
+  Enable_Spawn_Teleport: true
+  Spawn_Teleport_Cooldown: 5
+  Enable_Spawn_Countdown_Titles: true
+
 
 Deaths:
   Death_Message: "%player_name% died."
@@ -63,6 +68,7 @@ Deaths:
   Gamemode_After_Respawn: SURVIVAL
   Enable_Respawn_Countdown_Titles: true
   No_Move_On_Respawn: true
+  Skip_Death_Screen: true
   Types:
     FALL:
       Message: "%player_name% died from Falling off a cliff."
@@ -95,3 +101,11 @@ Titles:
     Stay: 5
     FadeOut: 5
     Delay: 2
+  SPAWN_TELEPORTING:
+    Title: "Teleporting in"
+    Subtitle: "&b%cooldown% seconds"
+    FadeIn: 5
+    Stay: 5
+    FadeOut: 5
+    Delay: 2
+
