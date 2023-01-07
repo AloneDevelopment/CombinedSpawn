@@ -6,9 +6,8 @@ Version: 2.0.0
 # This Plugin is created by AloneMusk
 # [Be careful with configs!]
 
-#Sends when the player first ever joins the server.
-First_Join_Message: "&6Hello %player%, Welcome to server"
-Join_Message: "&6Hello %player%, Welcome to server"
+First_Join_Message: "&6Hello %player_name%, Welcome to server"
+Join_Message: "&6Hello %player_name%, Welcome to server"
 
 First_Join_MOTD:
   - ""
@@ -36,9 +35,17 @@ Spawn_Location:
   pitch: 0
   world: "world"
 
+Void_Spawn_Location:
+  x: 0
+  y: ~
+  z: 0
+  yaw: 90
+  pitch: 0
+  world: "world"
 
 
-Quit_Message: "&6%player% left the server"
+
+Quit_Message: "&6%player_name% left the server"
 
 #
 #Options
@@ -47,3 +54,44 @@ Quit_Message: "&6%player% left the server"
 Enable_Void_TP: true
 Enable_Force_Teleport: true
 Enable_Spawn_Command: true
+
+
+Deaths:
+  Death_Message: "%player_name% died."
+  Respawn_Cooldown: 10
+  Gamemode_Before_Respawn: SPECTATOR
+  Gamemode_After_Respawn: SURVIVAL
+  Enable_Respawn_Countdown_Titles: true
+  No_Move_On_Respawn: true
+  Types:
+    FALL:
+      Message: "%player_name% died from Falling off a cliff."
+      Private_Message: "Unfortunately you died and lost $300"
+      Money_Penalty: 300
+      Level_Penalty: 5
+      exp_Penalty: 0
+      Titles:
+        Title: "You died from falling"
+        Subtitle: "You Lost $300"
+        FadeIn: 5
+        Stay: 5
+        FadeOut: 5
+      Respawn_Cooldown: 10
+      Keep_Inventory: true
+      Keep_Levels: true
+
+Titles:
+  Join_Title:
+    Title: "Welcome back %player_name%"
+    Subtitle: "You have %balance%"
+    FadeIn: 5
+    Stay: 5
+    FadeOut: 5
+    Delay: 2
+  RESPAWN:
+    Title: "Respawning in"
+    Subtitle: "&b%cooldown% seconds"
+    FadeIn: 5
+    Stay: 5
+    FadeOut: 5
+    Delay: 2

@@ -32,14 +32,15 @@ public class Util {
     public static void sendMultipleMsg(List<String> messages, Player p) {
         for (String message : messages) {
             String msg = PlaceholderAPI.setPlaceholders(p, message);
-            Util.sendMsg(msg, p);
+            String a = ChatColor.translateAlternateColorCodes('&', msg);
+            Util.sendMsg(a, p);
         }
     }
 
 
 
     public static String returnPlaceholders(String message, Player p) {
-        return PlaceholderAPI.setPlaceholders(p,message);
+        return ChatColor.translateAlternateColorCodes('&',PlaceholderAPI.setPlaceholders(p,message));
     }
 
     //Sends a message to a player if they have permission

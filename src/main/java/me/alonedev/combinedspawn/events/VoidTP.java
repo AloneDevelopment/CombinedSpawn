@@ -23,13 +23,13 @@ public class VoidTP implements Listener {
     public void onVoidDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if(main.getConfig().getBoolean("VoidTeleport.Enable")) {
+            if(main.getConfig().getBoolean("Enable_Void_TP")) {
                 if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
                     event.setCancelled(true);
                     Bukkit.getScheduler().runTaskLater(main, new Runnable() {
                         @Override
                         public void run() {
-                            functions.teleportPlayer(player, "VoidTeleport.TeleportLocation");
+                            functions.teleportPlayer(player, "Void_Spawn_Location");
                             player.setHealth(20);
                             player.setFallDistance(0);
                         }

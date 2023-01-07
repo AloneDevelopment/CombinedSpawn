@@ -4,6 +4,7 @@ import me.alonedev.combinedspawn.CombinedSpawn;
 import me.alonedev.combinedspawn.utils.Util;
 import me.alonedev.combinedspawn.constructors.DeathConstructor;
 import me.alonedev.combinedspawn.utils.Functions;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,10 +35,17 @@ public class DeathEvent implements Listener {
         DeathConstructor death = DeathConstructor.getDeathType(dc.name());
         DeathConstructor deathEntity = DeathConstructor.getDeathType(String.valueOf(entityKiller));
 
+        if (death == null) {
+            event.setDeathMessage(Util.returnPlaceholders(main.getConfig().getString("Deaths.Death_Message"), player));
+            OnRespawn.cooldowns.put(player, main.getConfig().getInt("Deaths.Respawn_Cooldown"));
+            return;
+        }
+
         //Messages
         Util.sendMsg(Util.returnPlaceholders(death.getPrivateMessage(), player), player);
-        event.setDeathMessage(Util.returnPlaceholders(death.getMessage(),player));
-        player.sendTitle(death.getTitle(),death.getSubtitle(), death.getFadeIn(),death.getStay(),death.getFadeout());
+        event.setDeathMessage(Util.returnPlaceholders(death.getMessage(), player));
+        player.sendTitle(Util.returnPlaceholders(death.getTitle(), player) , Util.returnPlaceholders(death.getSubtitle(), player), death.getFadeIn(),death.getStay(),death.getFadeout());
+        OnRespawn.cooldowns.put(player, death.getCoolown());
     }
 
 

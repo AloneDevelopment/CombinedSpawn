@@ -27,21 +27,15 @@ public final class CombinedSpawn extends JavaPlugin {
     public static Economy econ = null;
     private static final Logger log = Logger.getLogger("Minecraft");
 
-
-    private final File dataFile = new File(getDataFolder(), "data.yml");
-    private final FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(dataFile);
-
     @Override
     public void onEnable() {
         // Plugin startup logic
         Util.consoleMsg("--------------------------------------\n  \nCombinedSpawn has successfully loaded!\n  \n--------------------------------------");
         Logger logger = this.getLogger();
         this.saveDefaultConfig();
-        if(!dataFile.exists()) {
-            saveResource("data.yml", false);
-        }
         registerCommands();
         registerEvents();
+        loadData();
 
         getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
         getServer().getPluginManager().registerEvents(new LeaveEvent(this), this);
@@ -50,7 +44,6 @@ public final class CombinedSpawn extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnRespawn(this), this);
         if (this.getConfig().getBoolean("Deaths.No_Move_On_Respawn")) {
             getServer().getPluginManager().registerEvents(new NoMove(this), this);
-
         }
         this.getCommand("spawn").setExecutor(new Spawn(this));
 
@@ -60,7 +53,7 @@ public final class CombinedSpawn extends JavaPlugin {
         }
 
 
-        if (!setupEconomy()) {
+        if (setupEconomy()) {
             log.severe(String.format("[%s] - Vault Is required for economy!", getDescription().getName()));
             return;
         }
@@ -92,23 +85,14 @@ public final class CombinedSpawn extends JavaPlugin {
 // YAML
 //
 
-    public void saveYml(FileConfiguration ymlConfig, File ymlFile) {
-        try {
-            ymlConfig.save(ymlFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void loadData() {
 
         FileConfiguration cfg = this.getConfig();
 
-        //Deaths
-        List<String> DeathsToRegister = cfg.getStringList("DeathTypes");
-
-        for (String x : DeathsToRegister) {
+        cfg.getConfigurationSection("Deaths.Types").getKeys(false).forEach(x -> {
+            Bukkit.getConsoleSender().sendMessage(x);
             String DeathMessage = cfg.getString("Deaths.Types." + x + ".Message", cfg.getString("Player_Death.Death_Message"));
+            Bukkit.getConsoleSender().sendMessage(DeathMessage);
             String PrivateDeathMessage = cfg.getString("Deaths.Types." + x + ".Private_Message", "&cYou died! Unfortunately you lost %moneylost%");
             int MoneyPenalty = cfg.getInt("Deaths.Types." + x + ".Money_Penalty", 100);
             int levelPenalty = cfg.getInt("Deaths.Types." + x + ".Level_Penalty", 1);
@@ -123,16 +107,14 @@ public final class CombinedSpawn extends JavaPlugin {
             boolean keeplevels = cfg.getBoolean("Deaths.Types." + x + ".Keep_Levels");
             DeathConstructor newDeathType = new DeathConstructor(DeathMessage, PrivateDeathMessage, title, subtitle, MoneyPenalty, levelPenalty, expPenalty, fadeIn, stay, fadeOut, cooldown, keepinventory, keeplevels);
             DeathConstructor.addDeathType(x, newDeathType);
-
-
-        }
+        });
 
         //Titles
-        List<String> titlesToSend = cfg.getStringList("SendTitles");
-        for (String x : titlesToSend) {
-
+        cfg.getConfigurationSection("Titles").getKeys(false).forEach(x -> {
+            Bukkit.getConsoleSender().sendMessage(x);
             String title = cfg.getString("Titles." + x + ".Title");
-            String subtitle = cfg.getString("Titles." + x + ".SubTitle");
+            Bukkit.getConsoleSender().sendMessage(title);
+            String subtitle = cfg.getString("Titles." + x + ".Subtitle");
             int fadeIn = cfg.getInt("Titles." + x + ".FadeIn");
             int stay = cfg.getInt("Titles." + x + ".Stay");
             int fadeOut = cfg.getInt("Titles." + x + ".FadeOut");
@@ -140,9 +122,7 @@ public final class CombinedSpawn extends JavaPlugin {
             Title newTitle = new Title(title, subtitle, fadeIn, stay, fadeOut);
             Title.setDelay(delay);
             Functions.addTitle(x, newTitle);
-
-
-        }
+        });
     }
 
     private boolean setupEconomy() {

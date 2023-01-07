@@ -2,11 +2,11 @@ name: CombinedSpawn
 version: ${project.version}
 main: me.alonedev.combinedspawn.CombinedSpawn
 api-version: 1.13
-prefix: [ CombinedSpawn ]
+prefix: CombinedSpawn
 load: STARTUP
 authors: [ AloneMusk ]
 description: An advanced spawn plugin with VoidTP and /spawn
-depend: [PlaceholderAPI]
+depend: [PlaceholderAPI, Vault]
 
 commands:
   spawn:

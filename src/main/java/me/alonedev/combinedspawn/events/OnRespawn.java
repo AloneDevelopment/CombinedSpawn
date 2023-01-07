@@ -58,12 +58,12 @@ public class OnRespawn implements Listener {
 
                     } else {
                         if (main.getConfig().getBoolean("Deaths.Enable_Respawn_Countdown_Titles")) {
-                            Title title = Functions.getTitle("Respawn");
+                            Title title = Functions.getTitle("RESPAWN");
 
                             String spawnTitle = PlaceholderAPI.setPlaceholders(player, title.getTitle());
                             String Subtitle = PlaceholderAPI.setPlaceholders(player, title.getSubtitle());
                             player.sendTitle(ChatColor.translateAlternateColorCodes('&', spawnTitle).
-                                    replace("%cooldown%", time), Subtitle.
+                                    replace("%cooldown%", time), ChatColor.translateAlternateColorCodes('&', Subtitle).
                                     replace("%cooldown%", time), title.getFadeIn(), title.getStay(), title.getFadeOut());
                             ;
 
