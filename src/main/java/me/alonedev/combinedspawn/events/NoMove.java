@@ -18,7 +18,7 @@ public class NoMove implements Listener {
     @EventHandler
     public void RespawnCooldown(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (main.getConfig().getBoolean("Deaths.No_Move_On_Resapwn")) {
+        if (main.getConfig().getBoolean("Deaths.No_Move_On_Respawn")) {
             if (OnRespawn.Isdead.get(player) != null) {
                 if (OnRespawn.Isdead.get(player)) {
                     event.setCancelled(true);

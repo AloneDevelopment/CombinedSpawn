@@ -1,10 +1,9 @@
 package me.alonedev.combinedspawn.events;
 
 import me.alonedev.combinedspawn.CombinedSpawn;
-import me.alonedev.combinedspawn.utils.Util;
 import me.alonedev.combinedspawn.constructors.DeathConstructor;
 import me.alonedev.combinedspawn.utils.Functions;
-import me.clip.placeholderapi.PlaceholderAPI;
+import me.alonedev.combinedspawn.utils.Util;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,55 +14,73 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathEvent implements Listener {
 
-    private CombinedSpawn main;
-    private Functions functions;
+    private final CombinedSpawn main;
 
     public DeathEvent(CombinedSpawn main) {
         this.main = main;
-        this.functions = new Functions(main);
     }
-
-    private EntityType entityKiller;
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        EntityDamageEvent ede = player.getLastDamageCause();
-        EntityDamageEvent.DamageCause dc = ede.getCause();
+        DeathConstructor death;
 
-        DeathConstructor death = DeathConstructor.getDeathType(dc.name());
-        DeathConstructor deathEntity = DeathConstructor.getDeathType(String.valueOf(entityKiller));
+        if (event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent nEvent = (EntityDamageByEntityEvent) event.getEntity().getLastDamageCause();
+            death = DeathConstructor.getDeathType(nEvent.getDamager().getName().toUpperCase());
+        } else {
+            death = DeathConstructor.getDeathType(player.getLastDamageCause().getCause().name().toUpperCase());
+        }
 
         if (death == null) {
-            event.setDeathMessage(Util.returnPlaceholders(main.getConfig().getString("Deaths.Death_Message"), player));
-            OnRespawn.cooldowns.put(player, main.getConfig().getInt("Deaths.Respawn_Cooldown"));
-            return;
+            death = DeathConstructor.getDeathType("DEFAULT");
         }
+
 
         //Messages
-        Util.sendMsg(Util.returnPlaceholders(death.getPrivateMessage(), player), player);
-        event.setDeathMessage(Util.returnPlaceholders(death.getMessage(), player));
-        player.sendTitle(Util.returnPlaceholders(death.getTitle(), player) , Util.returnPlaceholders(death.getSubtitle(), player), death.getFadeIn(),death.getStay(),death.getFadeout());
-        OnRespawn.cooldowns.put(player, death.getCoolown());
-    }
+        if (death.getPrivateMessage() != null) {
+            Util.sendMsg(Util.returnPlaceholders(death.getPrivateMessage(), player), player);
+        } else if (main.getConfig().getBoolean("Auto_Fill_Incomplete_Death_Types_With_Default")) {
+            Util.sendMsg(Util.returnPlaceholders(main.getConfig().getString("Deaths.Types.DEFAULT.Private_Message"), player), player);
+        }
+        if (death.getMessage() != null) {
+            event.setDeathMessage(Util.returnPlaceholders(death.getMessage(), player));
+        } else if (main.getConfig().getBoolean("Auto_Fill_Incomplete_Death_Types_With_Default")) {
+            Util.sendMsg(Util.returnPlaceholders(main.getConfig().getString("Deaths.Types.DEFAULT.Message"), player), player);
+        }
+        if (death.getTitle() != null) {
+            player.sendTitle(Util.returnPlaceholders(death.getTitle(), player), Util.returnPlaceholders(death.getSubtitle(), player), death.getFadeIn(), death.getStay(), death.getFadeout());
+        } else if (main.getConfig().getBoolean("Auto_Fill_Incomplete_Death_Types_With_Default")) {
+            player.sendTitle(Util.returnPlaceholders(main.getConfig().getString("Deaths.Types.DEFAULT.Titles.Title"), player), Util.returnPlaceholders(main.getConfig().getString("Deaths.Types.DEFAULT.Titles.Subtitle"), player), main.getConfig().getInt("Deaths.Types.DEFAULT.Titles.FadeIn"), main.getConfig().getInt("Deaths.Types.DEFAULT.Titles.Stay"), main.getConfig().getInt("Deaths.Types.DEFAULT.Titles.FadeOut"));
+        }
+        if (death.getCoolown() != 0) {
+            OnRespawn.cooldowns.put(player, death.getCoolown());
+        } else if (main.getConfig().getBoolean("Auto_Fill_Incomplete_Death_Types_With_Default")) {
+            OnRespawn.cooldowns.put(player, main.getConfig().getInt("Deaths.Types.DEFAULT.Respawn_Cooldown"));
+        }
 
+        if (death.getInventory() != null) {
+            event.setKeepInventory(death.getInventory());
+        } else if (main.getConfig().getBoolean("Auto_Fill_Incomplete_Death_Types_With_Default")) {
+            event.setKeepInventory(main.getConfig().getBoolean("Deaths.Types.DEFAULT.Keep_Inventory"));
+        }
 
-    @EventHandler
-    public void getKiller(EntityDamageByEntityEvent event) {
+        if (death.getKeepLevel() != null) {
+            event.setKeepLevel(death.getKeepLevel());
+        } else if (main.getConfig().getBoolean("Auto_Fill_Incomplete_Death_Types_With_Default")) {
+            event.setKeepLevel(main.getConfig().getBoolean("Deaths.Types.DEFAULT.Keep_Level"));
+        }
 
-        if (event.getEntity() instanceof Player) {
-
-            Player player = (Player) event.getEntity();
-            if (player.getHealth() <= event.getDamage()) {
-                entityKiller = event.getDamager().getType();
-            }
-
+        CombinedSpawn.econ.withdrawPlayer(player, death.getMoneyPenalty());
+        if (player.getLevel() - death.getLevelPenalty() > 0) {
+            player.setLevel(player.getLevel() - death.getLevelPenalty());
+        }
+        if (player.getExp() - death.getLevelPenalty() > 0) {
+            player.setExp(player.getExp() - death.getLevelPenalty());
         }
 
 
+
     }
-
-
-
 }

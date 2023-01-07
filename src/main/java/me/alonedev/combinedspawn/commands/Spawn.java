@@ -54,7 +54,7 @@ public class Spawn implements CommandExecutor {
                                 String spawnTitle = PlaceholderAPI.setPlaceholders(player, title.getTitle());
                                 String Subtitle = PlaceholderAPI.setPlaceholders(player, title.getSubtitle());
                                 player.sendTitle(ChatColor.translateAlternateColorCodes('&', spawnTitle).
-                                        replace("%cooldown%", time), Subtitle.
+                                        replace("%cooldown%", time), ChatColor.translateAlternateColorCodes('&', Subtitle).
                                         replace("%cooldown%", time), title.getFadeIn(), title.getStay(), title.getFadeOut());
 
                                 cooldowns.put(player, cooldowns.get(player) - 1);

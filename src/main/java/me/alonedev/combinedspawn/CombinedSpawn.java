@@ -30,11 +30,6 @@ public final class CombinedSpawn extends JavaPlugin {
         registerEvents();
         loadData();
 
-        getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
-        getServer().getPluginManager().registerEvents(new LeaveEvent(this), this);
-        getServer().getPluginManager().registerEvents(new VoidTP(this), this);
-        getServer().getPluginManager().registerEvents(new DeathEvent(this), this);
-        getServer().getPluginManager().registerEvents(new OnRespawn(this), this);
         if (this.getConfig().getBoolean("Deaths.No_Move_On_Respawn")) {
             getServer().getPluginManager().registerEvents(new NoMove(this), this);
         }
@@ -46,7 +41,7 @@ public final class CombinedSpawn extends JavaPlugin {
         }
 
 
-        if (setupEconomy()) {
+        if (!setupEconomy()) {
             log.severe(String.format("[%s] - Vault Is required for economy!", getDescription().getName()));
             return;
         }
@@ -65,9 +60,11 @@ public final class CombinedSpawn extends JavaPlugin {
     }
 
     public void registerEvents() {
+        getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
+        getServer().getPluginManager().registerEvents(new LeaveEvent(this), this);
         getServer().getPluginManager().registerEvents(new VoidTP(this), this);
         getServer().getPluginManager().registerEvents(new DeathEvent(this), this);
-        getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
+        getServer().getPluginManager().registerEvents(new OnRespawn(this), this);
     }
 
     public void registerCommands() {

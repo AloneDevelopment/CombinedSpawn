@@ -62,14 +62,28 @@ Options:
 
 
 Deaths:
-  Death_Message: "%player_name% died."
-  Respawn_Cooldown: 10
   Gamemode_Before_Respawn: SPECTATOR
   Gamemode_After_Respawn: SURVIVAL
   Enable_Respawn_Countdown_Titles: true
   No_Move_On_Respawn: true
   Skip_Death_Screen: true
+  Auto_Fill_Incomplete_Death_Types_With_Default: true
   Types:
+    DEFAULT:
+      Message: "%player_name% died."
+      Private_Message: "Unfortunately you died and lost $100"
+      Money_Penalty: 100
+      Level_Penalty: 5
+      exp_Penalty: 0
+      Titles:
+        Title: "You died."
+        Subtitle: "You Lost $100"
+        FadeIn: 5
+        Stay: 5
+        FadeOut: 5
+      Respawn_Cooldown: 10
+      Keep_Inventory: true
+      Keep_Levels: true
     FALL:
       Message: "%player_name% died from Falling off a cliff."
       Private_Message: "Unfortunately you died and lost $300"
@@ -85,6 +99,10 @@ Deaths:
       Respawn_Cooldown: 10
       Keep_Inventory: true
       Keep_Levels: true
+    WITHER:
+      Message: "%player_name% withered away."
+    ZOMBIE:
+      Message: "%player_name% was molested by a Zombie"
 
 Titles:
   Join_Title:
