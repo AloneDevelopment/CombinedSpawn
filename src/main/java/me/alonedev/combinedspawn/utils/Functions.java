@@ -1,11 +1,12 @@
 package me.alonedev.combinedspawn.utils;
 
 import me.alonedev.combinedspawn.CombinedSpawn;
+import me.alonedev.combinedspawn.constructors.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import java.util.HashMap;
 
-import java.util.List;
 
 public class Functions {
 
@@ -56,5 +57,18 @@ public class Functions {
         }
         return true;
 
+    }
+
+
+    private static HashMap<String, Title> titles = new HashMap<>();
+
+    public static void addTitle(String id, Title title){
+
+        titles.put(id,title);
+
+    }
+
+    public static Title getTitle(String id) {
+        return titles.get(id);
     }
 }
