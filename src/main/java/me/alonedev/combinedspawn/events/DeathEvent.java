@@ -42,7 +42,7 @@ public class DeathEvent implements Listener {
 
 
     @EventHandler
-    public void Getkiller(EntityDamageByEntityEvent event) {
+    public void getKiller(EntityDamageByEntityEvent event) {
 
         if (event.getEntity() instanceof Player) {
 

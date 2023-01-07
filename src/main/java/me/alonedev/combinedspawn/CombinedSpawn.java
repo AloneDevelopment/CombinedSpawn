@@ -1,5 +1,8 @@
 package me.alonedev.combinedspawn;
 
+import me.alonedev.combinedspawn.events.DeathEvent;
+import me.alonedev.combinedspawn.events.JoinEvent;
+import me.alonedev.combinedspawn.events.VoidTP;
 import me.alonedev.combinedspawn.utils.Util;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -12,8 +15,8 @@ public final class CombinedSpawn extends JavaPlugin {
 
     //Data.yml
 
-    private File dataFile = new File(getDataFolder(), "data.yml");
-    private FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(dataFile);
+    private final File dataFile = new File(getDataFolder(), "data.yml");
+    private final FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(dataFile);
 
     @Override
     public void onEnable() {
@@ -21,10 +24,12 @@ public final class CombinedSpawn extends JavaPlugin {
         Util.consoleMsg("--------------------------------------\n  \nCombinedSpawn has successfully loaded!\n  \n--------------------------------------");
 
         this.saveDefaultConfig();
-
         if(!dataFile.exists()) {
             saveResource("data.yml", false);
         }
+        registerCommands();
+        registerEvents();
+
 
     }
 
@@ -33,6 +38,15 @@ public final class CombinedSpawn extends JavaPlugin {
         // Plugin shutdown logic
     }
 
+    public void registerEvents() {
+        getServer().getPluginManager().registerEvents(new VoidTP(this), this);
+        getServer().getPluginManager().registerEvents(new DeathEvent(this), this);
+        getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
+    }
+
+    public void registerCommands() {
+
+    }
 
 //
 // YAML

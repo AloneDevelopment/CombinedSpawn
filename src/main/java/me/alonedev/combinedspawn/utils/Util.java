@@ -39,8 +39,7 @@ public class Util {
 
 
     public static String returnPlaceholders(String message, Player p) {
-        String msg = PlaceholderAPI.setPlaceholders(p,message);
-        return msg;
+        return PlaceholderAPI.setPlaceholders(p,message);
     }
 
     //Sends a message to a player if they have permission

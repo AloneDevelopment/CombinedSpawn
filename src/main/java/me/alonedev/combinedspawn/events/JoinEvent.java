@@ -26,14 +26,14 @@ public class JoinEvent implements Listener {
         Player player = event.getPlayer();
 
         if (!player.hasPlayedBefore()) {
-            event.setJoinMessage(Util.returnPlaceholders(main.getConfig().getString("JoinEvent.FirstJoin.Message") ,player));
-            Util.sendMultipleMsg(main.getConfig().getStringList("JoinEvent.FirstJoin.MOTD") ,player);
-            itemUtils.generateItems(player, "JoinEvent.FirstJoin");
-            playerFunctions.teleportPlayer(player, "JoinEvent.FirstJoin.spawn");
+            event.setJoinMessage(Util.returnPlaceholders(main.getConfig().getString("First_Join_Message") ,player));
+            Util.sendMultipleMsg(main.getConfig().getStringList("First_Join_MOTD") ,player);
+            itemUtils.generateItems(player, "First_Join_Items");
+            playerFunctions.teleportPlayer(player, "First_Join_Spawn_Location");
         }
-        event.setJoinMessage(Util.returnPlaceholders(main.getConfig().getString("JoinEvent.Join.Message"), player));
-        Util.sendMultipleMsg(main.getConfig().getStringList("JoinEvent.Join.MOTD"), player);
-        itemUtils.generateItems(player,"JoinEvent.Join");
-        playerFunctions.teleportPlayer(player, "JoinEvent.Join.spawn");
+        event.setJoinMessage(Util.returnPlaceholders(main.getConfig().getString("Join_Message"), player));
+        Util.sendMultipleMsg(main.getConfig().getStringList("Join_MOTD"), player);
+        itemUtils.generateItems(player,"Join_Items");
+        playerFunctions.teleportPlayer(player, "Spawn_Location");
     }
 }

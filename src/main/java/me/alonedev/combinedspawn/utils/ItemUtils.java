@@ -20,7 +20,7 @@ public class ItemUtils {
         this.main = main;
     }
 
-    public ItemStack createItem(final Material material, final String name, final ArrayList<String> lore, String event) {
+    public static ItemStack createItem(final Material material, final String name, final ArrayList<String> lore) {
         final ItemStack item = new ItemStack(material, 1);
         final ItemMeta meta = item.getItemMeta();
 
@@ -32,7 +32,6 @@ public class ItemUtils {
 
         //Enchants
 
-        meta.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(enchant)), enchantLvl, true);
         item.setItemMeta(meta);
         return item;
     }
