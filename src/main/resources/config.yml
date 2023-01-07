@@ -70,7 +70,15 @@ Deaths:
   Auto_Fill_Incomplete_Death_Types_With_Default: true
   Types:
     DEFAULT:
-      Message: "%player_name% died."
+      Messages:
+        - "%player_name% said \"ALLAHU AKBAR!\""
+        - "%player_name% left the lobby on the 9th of September"
+        - "%player_name% left the game on the 9th of September"
+        - "%player_name% left the chat on the 9th of September"
+        - "%player_name% was in Hiroshima on the 6th of August, 1945"
+        - "%player_name% joined ISIS"
+        - "%player_name% joined Al-Qaeda"
+        - "%player_name% started singing \"Here Comes the Sun\""
       Private_Message: "Unfortunately you died and lost $100"
       Money_Penalty: 100
       Level_Penalty: 5
@@ -85,7 +93,11 @@ Deaths:
       Keep_Inventory: true
       Keep_Levels: true
     FALL:
-      Message: "%player_name% died from Falling off a cliff."
+      Messages:
+        - "%player_name% committed seppuku"
+        - "%player_name% became a furry"
+        - "%player_name% wanted to identify as an attack helicopter"
+        - "%player_name%'s Discord kitten left"
       Private_Message: "Unfortunately you died and lost $300"
       Money_Penalty: 300
       Level_Penalty: 5
@@ -100,9 +112,37 @@ Deaths:
       Keep_Inventory: true
       Keep_Levels: true
     WITHER:
-      Message: "%player_name% withered away."
+      Messages:
+        - "Bill Cosby hit on %player_name%"
+        - "%player_name% got molested by Venom"
+        - "%player_name% didn't say no to drugs"
+        - "%player_name% went trick or treating in Mexico"
     ZOMBIE:
-      Message: "%player_name% was molested by a Zombie"
+      Messages:
+        - "%player_name% was molested by a Zombie"
+    PLAYER:
+      Messages:
+        - "%player_name% died from %killer%"
+        - "%player_name% got rabies from %killer%"
+        - "&d%killer% mopped the floor with the remains of %player_name%"
+        - "&c%killer% used Eggman's super laser piss against %player_name%"
+        - "&b%player_name% got raped by %killer%"
+      Private_Message: "Unfortunately you died and lost $100"
+      Money_Penalty: 100
+      Level_Penalty: 5
+      exp_Penalty: 0
+      Titles:
+        Title: "You died."
+        Subtitle: "You Lost $100"
+        FadeIn: 5
+        Stay: 5
+        FadeOut: 5
+      Respawn_Cooldown: 10
+      Keep_Inventory: true
+      Keep_Levels: true
+      Killer_Money_Reward: 500
+      Killer_Exp_Reward: 5000
+
 
 Titles:
   Join_Title:

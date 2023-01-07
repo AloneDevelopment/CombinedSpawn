@@ -30,10 +30,6 @@ public class OnRespawn implements Listener {
     @EventHandler
     public void PlayerRespawn(PlayerRespawnEvent event) {
 
-        if (main.getConfig().getBoolean("Deaths.Skip_Death_Screen")) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(main, () -> event.getPlayer().spigot().respawn(), 2);
-        }
-
         Player player = event.getPlayer();
         Isdead.put(player, true);
 

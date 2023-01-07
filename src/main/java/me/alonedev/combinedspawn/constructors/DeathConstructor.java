@@ -1,11 +1,12 @@
 package me.alonedev.combinedspawn.constructors;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class DeathConstructor {
 
-    private String message;
-    private String privatemessage;
+    private List<String> messages;
+    private String privateMessage;
     private String title;
     private String subtitle;
     private int MoneyPenalty;
@@ -19,9 +20,9 @@ public class DeathConstructor {
     private boolean keeplevel;
 
 
-    public DeathConstructor(String message, String privatemessage, String Title, String Subtitle, int MoneyPenalty, int LevelPenalty, int expPenalty, int fadeIn, int stay, int fadeOut, int cooldown, boolean keepinventory, boolean keeplevel) {
-        this.message = message;
-        this.privatemessage = privatemessage;
+    public DeathConstructor(List<String> messages, String privateMessage, String Title, String Subtitle, int MoneyPenalty, int LevelPenalty, int expPenalty, int fadeIn, int stay, int fadeOut, int cooldown, boolean keepinventory, boolean keeplevel) {
+        this.messages = messages;
+        this.privateMessage = privateMessage;
         this.MoneyPenalty = MoneyPenalty;
         this.LevelPenalty = LevelPenalty;
         this.expPenalty = expPenalty;
@@ -38,10 +39,10 @@ public class DeathConstructor {
 
     }
 
-    public String getMessage(){
-        return message;
+    public List<String> getMessages(){
+        return messages;
     }
-    public String getPrivateMessage() {return privatemessage;}
+    public String getPrivateMessage() {return privateMessage;}
     public int getMoneyPenalty() {
         return MoneyPenalty;
     }

@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public final class CombinedSpawn extends JavaPlugin {
@@ -80,20 +81,20 @@ public final class CombinedSpawn extends JavaPlugin {
         FileConfiguration cfg = this.getConfig();
 
         cfg.getConfigurationSection("Deaths.Types").getKeys(false).forEach(x -> {
-            String DeathMessage = cfg.getString("Deaths.Types." + x + ".Message", cfg.getString("Player_Death.Death_Message"));
-            String PrivateDeathMessage = cfg.getString("Deaths.Types." + x + ".Private_Message", "&cYou died! Unfortunately you lost %moneylost%");
+            List<String> DeathMessages = cfg.getStringList("Deaths.Types." + x + ".Messages");
+            String PrivateDeathMessage = cfg.getString("Deaths.Types." + x + ".Private_Message");
             int MoneyPenalty = cfg.getInt("Deaths.Types." + x + ".Money_Penalty", 100);
             int levelPenalty = cfg.getInt("Deaths.Types." + x + ".Level_Penalty", 1);
             int expPenalty = cfg.getInt("Deaths.Types." + x + ".exp_Penalty", 1);
-            String title = cfg.getString("Deaths.Types." + x + ".Title.Death_Title", "You Died!");
-            String subtitle = cfg.getString("Deaths.Types." + x + ".Title.Death_Subtitle", "Hello");
+            String title = cfg.getString("Deaths.Types." + x + ".Title.Death_Title");
+            String subtitle = cfg.getString("Deaths.Types." + x + ".Title.Death_Subtitle");
             int fadeIn = cfg.getInt("Deaths.Types." + x + ".Title.FadeIn", 10);
             int stay = cfg.getInt("Deaths.Types." + x + ".Title.Stay", 100);
             int fadeOut = cfg.getInt("Deaths.Types." + x + ".Title.FadeOut", 10);
             int cooldown = cfg.getInt("Deaths.Types." + x + ".Respawn_Cooldown", 5);
             boolean keepinventory = cfg.getBoolean("Deaths.Types." + x + ".Keep_Inventory");
             boolean keeplevels = cfg.getBoolean("Deaths.Types." + x + ".Keep_Levels");
-            DeathConstructor newDeathType = new DeathConstructor(DeathMessage, PrivateDeathMessage, title, subtitle, MoneyPenalty, levelPenalty, expPenalty, fadeIn, stay, fadeOut, cooldown, keepinventory, keeplevels);
+            DeathConstructor newDeathType = new DeathConstructor(DeathMessages, PrivateDeathMessage, title, subtitle, MoneyPenalty, levelPenalty, expPenalty, fadeIn, stay, fadeOut, cooldown, keepinventory, keeplevels);
             DeathConstructor.addDeathType(x, newDeathType);
         });
 
