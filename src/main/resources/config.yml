@@ -138,7 +138,7 @@ Deaths:
         Stay: 5
         FadeOut: 5
       Respawn_Cooldown: 10
-      Keep_Inventory: true
+      Keep_Inventory: false
       Keep_Levels: true
       Killer_Money_Reward: 500
       Killer_Exp_Reward: 5000

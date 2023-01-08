@@ -91,8 +91,14 @@ public class DeathEvent implements Listener {
 
         if (death.getInventory() != null) {
             event.setKeepInventory(death.getInventory());
+            Util.sendMsg("Keep Inventory: " + death.getInventory(), player);
         } else if (main.getConfig().getBoolean("Auto_Fill_Incomplete_Death_Types_With_Default")) {
             event.setKeepInventory(main.getConfig().getBoolean("Deaths.Types.DEFAULT.Keep_Inventory"));
+            Util.sendMsg("Keep Inventory: " + main.getConfig().getBoolean("Deaths.Types.DEFAULT.Keep_Inventory"), player);
+        }
+        Util.sendMsg(String.valueOf(event.getKeepInventory()), player);
+        if (!event.getKeepInventory()) {
+            Util.sendMsg(event.getDrops().toString(), player);
         }
 
         if (death.getKeepLevel() != null) {
